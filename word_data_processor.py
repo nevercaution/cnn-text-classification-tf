@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from tensorflow.contrib import learn
+from konlpy.tag import Mecab
 
+mecab = Mecab()
 class WordDataProcessor(object):
     def vocab_processor(_, *texts):
         max_document_length = 0
@@ -21,4 +23,7 @@ class WordDataProcessor(object):
         """
         if ":" not in string:
             string = string.strip().lower()
-        return string
+        morphs_result = mecab.morphs(string)
+        result_string = ' '.join(morphs_result)
+        print("string : ", result_string)
+        return result_string
