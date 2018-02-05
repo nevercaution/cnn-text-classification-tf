@@ -14,7 +14,7 @@ import csv
 # ==================================================
 
 # Eval Parameters
-tf.flags.DEFINE_integer("batch_size", 64, "Batch Size (default: 64)")
+tf.flags.DEFINE_integer("batch_size",128, "Batch Size (default: 64)")
 tf.flags.DEFINE_string("checkpoint_dir", "", "Checkpoint directory from training run")
 tf.flags.DEFINE_boolean("eval_train", False, "Evaluate on all training data")
 
@@ -95,5 +95,5 @@ class_predictions = data_loader.class_labels(all_predictions.astype(int))
 predictions_human_readable = np.column_stack((np.array(x_raw), class_predictions))
 out_path = os.path.join(FLAGS.checkpoint_dir, "../../../", "prediction.csv")
 print("Saving evaluation to {0}".format(out_path))
-with open(out_path, 'w') as f:
+with open(out_path, 'w', encoding='UTF8') as f:
     csv.writer(f).writerows(predictions_human_readable)
